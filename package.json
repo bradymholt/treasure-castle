@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^7.0.4"
+    "inquirer": "^7.0.4",
+    "readline-sync": "^1.4.10"
   }
 }
