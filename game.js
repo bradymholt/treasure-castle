@@ -5,7 +5,6 @@ class Game {
   }
 
   async start() {
-    process.stdout.write('\x1Bc');
     this.welcome();
     await this.askQuestions();
   }
