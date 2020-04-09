@@ -1,16 +1,17 @@
 class Game { 
   constructor(){
-    this.numberOfKeysNeededToWin = 2;
+    this.numberOfKeysNeededToWin = 4;
     this.numberOfKeysObtained = 0;
   }
 
   async start() {
+    process.stdout.write('\x1Bc');
     this.welcome();
     await this.askQuestions();
   }
 
   welcome() {
-    print("Welcome to Treasure Castle!");
+    print("Welcome to Treasure Castle");
     print(`
                             -|             |-
          -|                  [-_-_-_-_-_-_-_-]                  |-
@@ -47,26 +48,41 @@ To get keys, you must correctly answer a series of VERY HARD questions.
       {
         text: "What color is the sky?",
         choices: ["Blue", "Ultraviolet", "White"],
-        answer: "Ultraviolet"
+        answer: "Ultraviolet",
       },
       {
         text: "What is the liquid from a volcano erruption called?",
         choices: ["Magma", "Lava", "Red"],
-        answer: "Magma"
-      }
+        answer: "Lava",
+      },
+      {
+        text: "What color is a school bus?",
+        choices: ["Yellow", "Orange", "Red", "Black"],
+        answer: "Yellow",
+      },
+      {
+        text: "What is the largest planet?",
+        choices: ["Pluto", "Mars", "Jupiter", "Earth"],
+        answer: "Jupiter",
+      },
+      {
+        text: "What is the tallest mountain on Earth?",
+        choices: ["Everest", "Rainier", "Mauna Kea", "Whitney"],
+        answer: "Everest",
+      },
     ];
 
     for (let question of questions) {
       clearScreen();
 
-      const response = await inquirer.prompt([
+      const response = await inquirer.prompt(
         {
           type: "list",
           name: "answer",
-          message: question.text,
+          message: `\x1Bc${question.text}`,
           choices: question.choices
         }
-      ]);     
+      );     
 
       const enteredAnswer = response.answer;
       const correctAnswer = question.answer;
@@ -88,10 +104,13 @@ To get keys, you must correctly answer a series of VERY HARD questions.
         this.numberOfKeysObtained = this.numberOfKeysObtained - 1;
 
         print("WRONG!");
-        this.printStatus();        
 
-        this.lose();
-        break;
+        if (this.numberOfKeysObtained == -1) {
+          this.lose();
+          break;
+        } else {
+          this.printStatus();
+        }
       }
       waitForKeyPress("[Press any key to continue]");
     }
@@ -144,7 +163,7 @@ o o o o    oo"  o"      "o    $$o$"     o o$""  o$      "$  "oo   o o o o
   lose(){
     print(`
 You lose!  Better luck next time.
-    `);
+    `);  
   }
 }
 
@@ -156,7 +175,7 @@ function print(message) {
 }
 
 function clearScreen() {
-  console.clear();
+  console.clear();  
 }
 
 function waitForKeyPress(message) {
