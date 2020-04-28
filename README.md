@@ -1,3 +1,5 @@
 # treasure-castle
 
-This is a simple game being used to teach JavaScript to my daughter and her friend.
+A simple text based game used as a teaching tool for my daughter and her friend Noah.
+
+This game can be modified and played online at: [https://repl.it/@bradymholt/treasure-castle](https://repl.it/@bradymholt/treasure-castle)
